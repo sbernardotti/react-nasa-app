@@ -1,20 +1,7 @@
 import { useState } from "react";
 import getDateType from "../helpers/getDateType";
 import { useLocation } from "wouter";
-
-const CAMERAS_OPTIONS = [
-  "ALL",
-  "FHAZ",
-  "RHAZ",
-  "MAST",
-  "CHEMCAM",
-  "MAHLI",
-  "MARDI",
-  "NAVCAM",
-  "PANCAM",
-  "MINITES",
-];
-const ROVERS_OPTIONS = ["Curiosity", "Opportunity", "Spirit"];
+import { CAMERAS_OPTIONS, ROVERS_OPTIONS } from "../helpers/searchOptions";
 
 function Searchbar({ initialRover, initialCamera, initialDate }) {
   const [rover, setRover] = useState(initialRover);
