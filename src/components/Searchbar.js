@@ -1,7 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import getDateType from "../helpers/getDateType";
 import { useLocation } from "wouter";
 import { CAMERAS_OPTIONS, ROVERS_OPTIONS } from "../helpers/searchOptions";
+import {
+  readEarthDate,
+  readSolDate,
+  writeEarthDate,
+  writeSolDate,
+} from "../service/localstorage.service";
 
 function Searchbar({ initialRover, initialCamera, initialDate }) {
   const [rover, setRover] = useState(initialRover);
@@ -21,10 +28,24 @@ function Searchbar({ initialRover, initialCamera, initialDate }) {
 
   const handleDateChange = (evt) => {
     setDate(evt.target.value);
+
+    if (dateType === "earth") {
+      writeEarthDate(evt.target.value);
+    } else {
+      writeSolDate(evt.target.value);
+    }
   };
 
   const handleChangeDateType = (evt) => {
     setDateType(evt.target.value);
+
+    setTimeout(() => {
+      if (evt.target.value === "earth") {
+        setDate(readEarthDate());
+      } else {
+        setDate(readSolDate());
+      }
+    }, 200);
   };
 
   const handleSearch = () => {
